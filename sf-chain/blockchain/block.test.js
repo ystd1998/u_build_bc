@@ -15,4 +15,16 @@ describe('Block', () => {
   it('sets the `lastHash` to match the hash of the last block', () => {
     expect(block.lastHash).toEqual(lastBlock.hash);
   });
+
+  it('generates a hash that matches the difficulty', () => {
+    expect(block.hash.substring(0, block.difficulty)).toEqual('0'.repeat(block.difficulty));
+  });
+
+  it('lowers the difficulty for slowly mined blocked', () => {
+    expect(Block.adjustDifficulity(block, block.timestamp+360000)).toEqual(block.difficulty-1);
+  });
+
+  it('raise the difficulty for quickly mined blocks', () => {
+    expect(Block.adjustDifficulity(block, block.timestamp+1)).toEqual(block.difficulty+1);
+  });
 });

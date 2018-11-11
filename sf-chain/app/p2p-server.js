@@ -20,7 +20,7 @@ class P2pserver {
   }
 
   connectToPeers() {
-    peers.forEach( peer => {
+    peers.forEach(peer => {
       // ws://localhost:5001
       const socket = new Websocket(peer);
 
@@ -34,7 +34,7 @@ class P2pserver {
 
     this.messageHandler(socket);
 
-    tihs.sendChain(socket);
+    this.sendChain(socket);
   }
 
   messageHandler(socket) {
@@ -44,15 +44,14 @@ class P2pserver {
 
       this.blockchain.replaceChain(data);
     });
+  }
 
-    sendChain(socket) {
-      socket.send(JSON.stringify(this.blockchain.chain));
-    }
+  sendChain(socket) {
+    socket.send(JSON.stringify(this.blockchain.chain));
+  }
 
-
-    syncChain() {
-      this.sockets.forEach(socket => this.sendChain(socket));
-    }
+  synChains() {
+    this.sockets.forEach(socket => this.sendChain(socket));
   }
 }
 
