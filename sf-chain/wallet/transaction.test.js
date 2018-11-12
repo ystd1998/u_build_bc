@@ -9,8 +9,6 @@ describe('Transaction', () => {
     amount = 50;
     recipient = 'r3c1p13nt';
     transaction = Transaction.newTransaction(wallet, recipient, amount);
-    console.log(transaction.outputs[0]);
-    console.log(transaction.outputs[1]);
   });
 
   it('outputs the `amount` subtracted from the wallect balance', () => {
@@ -60,12 +58,12 @@ describe('Transaction', () => {
 
     it('sbustract the next amount from the sender output', () => {
       expect(transaction.outputs.find(output => output.address === wallet.publicKey).amount)
-      .toEqual(wallet.balance-amount-nextAmount);      
+        .toEqual(wallet.balance - amount - nextAmount);
     });
 
     it('outputs an amount for the next recipient', () => {
       expect(transaction.outputs.find(output => output.address === nextRecipient).amount)
-      .toEqual(nextAmount);
+        .toEqual(nextAmount);
     });
   });
 
